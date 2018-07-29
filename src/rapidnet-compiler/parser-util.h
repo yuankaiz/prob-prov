@@ -65,9 +65,14 @@ public:
     value (val), m_position (-1)
   {
   }
+  
+  ParseExpr (ValueDoublePtr d_val) :
+  	value (d_val), m_position (-1)
+  {
+  }
 
   ParseExpr (ParseExpr* val) :
-    value (val->value), m_position (-1)
+    value (val->value), d_value (val->d_value), m_position (-1)
   {
   }
 
@@ -93,6 +98,8 @@ public:
   }
 
   ValuePtr value;
+  
+  ValueDoublePtr d_value;
 
 protected:
   int m_position;
@@ -114,6 +121,11 @@ public:
     ParseExpr (val), m_id (false)
   {
   }
+  
+  ParseVal (ValueDoublePtr d_val) :
+  	ParseExpr (d_val), m_id (false)
+  {
+  }
 
   virtual void Id (bool i)
   {
@@ -133,6 +145,11 @@ public:
   virtual ValuePtr Value ()
   {
     return value;
+  }
+  
+  virtual ValueDoublePtr D_Value ()
+  {
+  	return d_value;
   }
 
 protected:

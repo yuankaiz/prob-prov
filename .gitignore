@@ -29,9 +29,12 @@
 
 *.pyc
 
+*.lock-wscript
 
 #Build directory
 build/
+
+.waf*/
 
 #emacs
 

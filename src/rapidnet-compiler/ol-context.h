@@ -81,10 +81,10 @@ public:
   };
 
   /** An OverLog rule structure */
-  struct Rule
+  struct Rule	// add double weight, ruleWeight (weight)
   {
-    Rule (string r, ParseFunctor *h, bool d, bool dEvent = false) :
-      ruleID (r), head (h), deleteFlag (d), deleteEventFlag (dEvent),
+    Rule (string r, double weight, ParseFunctor *h, bool d, bool dEvent = false) :
+      ruleID (r), ruleWeight (weight), head (h), deleteFlag (d), deleteEventFlag (dEvent),
       ruleNum (OlContext::ruleCount++)
     {
     	isPeriodic = false;
@@ -98,9 +98,16 @@ public:
       ruleID = name->value->ToString ();
     }
 
+    void SetWeight (ParseExpr* weight) // get the actually value (could be an integer or real number
+    {
+      ruleWeight = weight->d_value->GetDoubleValue (); // need extra work!! 
+    }
+
     string ToString ();
 
     string ruleID;
+
+    double ruleWeight;	// add double ruleWeight
 
     /** The functor at the rule head */
     ParseFunctor* head;
@@ -170,13 +177,14 @@ public:
 
   // Create a new rule
   OlContext::Rule* CreateRule (ParseTerm *lhs, ParseTermList *rhs, bool deleteFlag,
-    ParseExpr *n = NULL, bool deleteEventFlag = false);
+    ParseExpr *n = NULL, ParseExpr *w = NULL, bool deleteEventFlag = false);
 
   // Add a new rule to the system
   void AddRule (ParseRule* rule);
-
+  
+  //Add an agg rule: what is an agg rule?
   OlContext::Rule* CreateAggRule (ParseTerm *lhs, ParseAggTerm *rhs, bool deleteFlag,
-    ParseExpr *n = NULL);
+    ParseExpr *n = NULL, ParseExpr *w = NULL);
 
   //SeNDlog: set the context for the rules
   void SetContext (ParseExpr *c = NULL);
@@ -256,7 +264,7 @@ private:
 
   /**
    * (Provenance) Rewrite the input rule for provenance, if provenance is
-   * enabled. Each rule is tranlated into 5 rules.
+   * enabled. Each rule is translated into 5 rules.
    */
   void ProvenanceRewrite (Rule* rule);
 

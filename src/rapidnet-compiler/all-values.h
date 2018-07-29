@@ -194,6 +194,9 @@ private:
 };
 
 
+class ValDouble;
+typedef Ptr<ValDouble> ValueDoublePtr;
+
 class ValDouble: public ParsedValue
 {
 public:
@@ -205,9 +208,9 @@ public:
   {
   }
 
-  static ValuePtr New (double d)
+  static ValueDoublePtr New (double d) // do we need to change this?
   {
-    ValuePtr p (new ValDouble (d));
+    ValueDoublePtr p (new ValDouble (d));
     return p;
   }
 
