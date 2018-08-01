@@ -19,6 +19,10 @@
 
 #include "ol-context.h"
 #include "ol-lexer.h"
+#include <string>
+#include <string.h>
+#include <cstdlib>
+#include <stdlib.h>
 
 using namespace ns3;
 using namespace ns3::rapidnet_compiler;
@@ -133,7 +137,7 @@ OlContext::CreateRule (ParseTerm *lhs, ParseTermList *rhs,
 
   ParseFunctor *h = dynamic_cast<ParseFunctor*> (lhs);
   string ruleName = (n) ? n->value->ToString () : "";
-  double ruleWeight = (w) ? w->d_value->GetDoubleValue () : 1.0;
+  double ruleWeight = (w) ? atof ((w->value->ToString ()).c_str()) : 1.0;
   int fict_varnum = 1; // Counter for inventing anonymous variables.
 
 
@@ -445,7 +449,7 @@ OlContext::CreateAggRule (ParseTerm *lhs, ParseAggTerm *rhs,
 {
   ParseFunctor *h = dynamic_cast<ParseFunctor*> (lhs);
   string ruleName = (n) ? n->value->ToString () : "";
-  double ruleWeight = (w) ? w->d_value->GetDoubleValue () : 1.0;
+  double ruleWeight = (w) ? atof ((w->value->ToString ()).c_str()) : 1.0;
   Rule *r = new Rule (ruleName, ruleWeight, h, deleteFlag);
   r->terms.push_back (rhs);
   return r;
@@ -507,8 +511,12 @@ OlContext::ParseStream (istream *str, bool provenanceEnabled)
 
   assert (lexer == NULL);
   lexer = new OlLexer (str);
+
+  std::cout << "Lexer Completed" << std::endl;
   ol_parser_parse (this);
 
+  std::cout << "Parser Completed" << std::endl;
+  
   if (isProvenanceEnabled)
     {
       AddEdbProvenanceRule ();

@@ -26,6 +26,10 @@
 #include "all-values.h"
 #include <list>
 #include "parser-util.h"
+#include <string>
+#include <string.h>
+#include <cstdlib>
+#include <stdlib.h>
 
 #include "ns3/log.h"
 #include "ns3/ref-count-base.h"
@@ -81,10 +85,10 @@ public:
   };
 
   /** An OverLog rule structure */
-  struct Rule	// add double weight, ruleWeight (weight)
+  struct Rule	// add double wt, ruleWeight (wt)
   {
-    Rule (string r, double weight, ParseFunctor *h, bool d, bool dEvent = false) :
-      ruleID (r), ruleWeight (weight), head (h), deleteFlag (d), deleteEventFlag (dEvent),
+    Rule (string r, double wt, ParseFunctor *h, bool d, bool dEvent = false) :
+      ruleID (r), ruleWeight (wt), head (h), deleteFlag (d), deleteEventFlag (dEvent),
       ruleNum (OlContext::ruleCount++)
     {
     	isPeriodic = false;
@@ -100,7 +104,7 @@ public:
 
     void SetWeight (ParseExpr* weight) // get the actually value (could be an integer or real number
     {
-      ruleWeight = weight->d_value->GetDoubleValue (); // need extra work!! 
+      ruleWeight = atof ((weight->value->ToString ()).c_str()); // c_str() is to convert str to char
     }
 
     string ToString ();

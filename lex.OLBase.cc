@@ -1,6 +1,5 @@
-#line 2 "src/rapidnet-compiler/ol-lexer.cc"
 
-#line 4 "src/rapidnet-compiler/ol-lexer.cc"
+#line 3 "lex.OLBase.cc"
 
 #define  YY_INT_ALIGNED short int
 
@@ -644,7 +643,7 @@ using namespace ns3::rapidnet_compiler;
 
 int dcvar = 0;
 
-#line 648 "src/rapidnet-compiler/ol-lexer.cc"
+#line 647 "lex.OLBase.cc"
 
 #define INITIAL 0
 #define CCOMMENT 1
@@ -757,7 +756,7 @@ YY_DECL
 #line 56 "src/rapidnet-compiler/ol-lexer.lex"
 
 
-#line 761 "src/rapidnet-compiler/ol-lexer.cc"
+#line 760 "lex.OLBase.cc"
 
 	if ( !(yy_init) )
 		{
@@ -1298,7 +1297,7 @@ YY_RULE_SETUP
 #line 227 "src/rapidnet-compiler/ol-lexer.lex"
 ECHO;
 	YY_BREAK
-#line 1302 "src/rapidnet-compiler/ol-lexer.cc"
+#line 1301 "lex.OLBase.cc"
 			case YY_STATE_EOF(CCOMMENT):
 			case YY_STATE_EOF(CSTRING):
 				yyterminate();
